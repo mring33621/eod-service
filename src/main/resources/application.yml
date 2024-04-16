@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: eod-service
+  main:
+    web-application-type: servlet
+  datasource:
+    url: jdbc:h2:./data/db/eod_db
+    username: data_admin
+    password: H4ppyDay5
+  graphql:
+    graphiql:
+      enabled: true

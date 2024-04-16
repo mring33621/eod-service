@@ -1,0 +1,17 @@
+type Query {
+    # Get a list of all the users
+    pointsForSymbol(symbol: String): [EodPoint]
+}
+
+type EodPoint {
+    id: ID
+    date: Int
+    symbol: String
+    open: Float
+    high: Float
+    low: Float
+    close: Float
+    volume: Float
+    exchange: String
+}
+
