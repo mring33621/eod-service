@@ -45,6 +45,7 @@ public class LoaderApplication implements CommandLineRunner {
                 }
             }
         }
+        // TODO: figure out why LoaderApplication is not exiting on its own
     }
 
     static File[] listFilesInFolderByLastModifiedAsc(String folderPath) {

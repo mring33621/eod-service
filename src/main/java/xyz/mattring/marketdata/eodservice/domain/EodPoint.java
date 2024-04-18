@@ -1,68 +1,64 @@
 package xyz.mattring.marketdata.eodservice.domain;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.MappedSuperclass;
 
 import java.math.BigDecimal;
 import java.util.StringJoiner;
 
 @MappedSuperclass
+@IdClass(EodPointId.class)
 public class EodPoint {
-    @EmbeddedId
-    private EodPointId id;
+
+    @Id
+    @Column(name = "DATE", nullable = false)
+    protected Integer date;
+
+    @Id
+    @Column(name = "SYMBOL", nullable = false, length = 5)
+    protected String symbol;
 
     @Column(name = "OPEN", precision = 10, scale = 2)
-    private BigDecimal open;
+    protected BigDecimal open;
 
     @Column(name = "HIGH", precision = 10, scale = 2)
-    private BigDecimal high;
+    protected BigDecimal high;
 
     @Column(name = "LOW", precision = 10, scale = 2)
-    private BigDecimal low;
+    protected BigDecimal low;
 
     @Column(name = "CLOSE", precision = 10, scale = 2)
-    private BigDecimal close;
+    protected BigDecimal close;
 
     @Column(name = "VOLUME", precision = 15, scale = 2)
-    private BigDecimal volume;
-
-    public EodPoint() {
-        this.id = new EodPointId();
-    }
-
-    public EodPointId getId() {
-        return id;
-    }
-
-    public void setId(EodPointId id) {
-        this.id = id;
-    }
+    protected BigDecimal volume;
 
     public String getIdAsString() {
-        return id.toString();
+        return date + "_" + symbol;
     }
 
     public void setIdAsString(String idString) {
         String[] parts = idString.split("_");
-        id.setDate(Integer.parseInt(parts[0]));
-        id.setSymbol(parts[1]);
+        setDate(Integer.parseInt(parts[0]));
+        setSymbol(parts[1]);
     }
 
     public int getDate() {
-        return id.getDate();
+        return this.date;
     }
 
     public void setDate(int date) {
-        id.setDate(date);
+        this.date = date;
     }
 
     public String getSymbol() {
-        return id.getSymbol();
+        return this.symbol;
     }
 
     public void setSymbol(String symbol) {
-        id.setSymbol(symbol);
+        this.symbol = symbol;
     }
 
     public BigDecimal getOpen() {
@@ -113,7 +109,8 @@ public class EodPoint {
     @Override
     public String toString() {
         return new StringJoiner(", ", EodPoint.class.getSimpleName() + "[", "]")
-                .add("id=" + getId())
+                .add("date=" + getDate())
+                .add("symbol='" + getSymbol() + "'")
                 .add("open=" + getOpen())
                 .add("high=" + getHigh())
                 .add("low=" + getLow())
