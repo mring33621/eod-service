@@ -1,7 +1,7 @@
 ### The 'eod-service' is a Spring Boot app that:
-- Hosts EOD OHLCV [stock market data](https://eoddata.com/) in an embedded H2 database
+- Hosts EOD OHLCV [stock market data](https://eoddata.com/) in an embedded [H2 database](https://www.h2database.com/html/main.html)
 - Provides a REST API endpoints for /exchanges, /{exchange}/symbols
-- Provides a GraphQL API endpoint for accessing the historic OHLCV data for a given symbol
+- Provides a [GraphQL](https://graphql.org/) API endpoint for accessing the historic OHLCV data for a given symbol
 - Wants to support NASDAQ, NYSE and AMEX exchanges. But currently only has data (and tables) for NASDAQ.
 - Demonstrates the following fun Java ecosystem features:
     - JPA with composite primary key
