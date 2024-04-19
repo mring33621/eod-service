@@ -45,7 +45,7 @@ public class LoaderApplication implements CommandLineRunner {
                 }
             }
         }
-        // TODO: figure out why LoaderApplication is not exiting on its own
+        // TODO: convince LoaderApplication that it does not need a servlet container...
     }
 
     static File[] listFilesInFolderByLastModifiedAsc(String folderPath) {
