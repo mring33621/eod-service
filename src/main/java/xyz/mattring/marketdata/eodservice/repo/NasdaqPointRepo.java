@@ -15,4 +15,7 @@ public interface NasdaqPointRepo extends JpaRepository<NasdaqEodPoint, EodPointI
 
     @Query("SELECT DISTINCT symbol FROM NasdaqEodPoint")
     List<String> findAllDistinctSymbols();
+
+    @Query("SELECT symbol FROM NasdaqEodPoint ORDER BY date DESC, volume DESC LIMIT 10")
+    List<String> findTop10SymbolsByRecentVolume();
 }

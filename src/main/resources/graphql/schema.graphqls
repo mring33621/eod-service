@@ -1,6 +1,6 @@
 type Query {
     # Get a list of all the users
-    pointsForSymbol(symbol: String): [EodPoint]
+    queryPointsForSymbol(symbol: String): [EodPoint]
 }
 
 type EodPoint {

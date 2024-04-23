@@ -29,7 +29,12 @@ public class EodPointController {
     }
 
     @QueryMapping
-    public List<EodPointRecord> pointsForSymbol(@Argument String symbol) {
+    public List<EodPointRecord> queryPointsForSymbol(@Argument String symbol) {
+        return listPointsForSymbol(symbol);
+    }
+
+    @GetMapping(path = "{symbol}/points", produces = "application/json")
+    public List<EodPointRecord> listPointsForSymbol(@PathVariable String symbol) {
         return nasdaqPointRepo.findBySymbol(symbol).stream()
                 .map(eodPointMapper::toRecord)
                 .toList();
@@ -40,6 +45,16 @@ public class EodPointController {
         final String reqExchange = exchange == null ? "nasdaq" : exchange;
         if ("nasdaq".equalsIgnoreCase(reqExchange)) {
             return nasdaqPointRepo.findAllDistinctSymbols();
+        } else {
+            return List.of();
+        }
+    }
+
+    @GetMapping(path = "{exchange}/top10symbols", produces = "application/json")
+    public List<String> top10SymbolsForExchange(@PathVariable String exchange) {
+        final String reqExchange = exchange == null ? "nasdaq" : exchange;
+        if ("nasdaq".equalsIgnoreCase(reqExchange)) {
+            return nasdaqPointRepo.findTop10SymbolsByRecentVolume();
         } else {
             return List.of();
         }
